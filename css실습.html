@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*외부 폰트 불러오기*/
+        @font-face {
+            font-family: 'neon';
+            src: url('https://zx8607.github.io/NEON____.TTF');
+        }
+        @font-face {
+            font-family: 'neons80';
+            src: url('https://zx8607.github.io/Neon.ttf');
+        }
+        @font-face{
+            font-family: 'future';
+            src: url('https://zx8607.github.io/Neon Future.ttf');
+        }
+        /*전체적인 폭과 색상 설정*/
+        body{background-color: black; width: 1020px; margin: 0 auto;}
+        /*어두운 벽돌배경의 헤더*/
+        header{
+            background-image: url('https://wallpaperaccess.com/full/1388946.jpg'); 
+            background-size: 100% 100%;
+            width: 1020px; height: 500px;
+            border-width: thick; border-style:solid;
+            background-repeat: no-repeat;
+            box-shadow: 0px 0px 30px 5px black inset,
+                        0px 0px 30px 5px black inset,
+                        0px 0px 30px 5px black inset,
+                        0px 0px 30px 5px black inset;
+        }
+        /*welcom글씨가 바로옆에 올수있도록 hours와 open, bar를 하나로 묶음 */
+        #leftbox{
+            float: left;
+            width: 800px;
+        }
+        
+        #hours{
+            border: 5px solid white; border-radius: 10%;
+            font-size: 90px; font-family: 'neons80';
+            line-height:0px;
+            text-align: center;
+            float: left;
+            width: 400px; height: 300px; margin: 20px;   
+            box-shadow: 0px 0px 15px 5px white,
+                        0px 0px 15px 5px white inset,
+                        0px 0px 30px 10px orange,
+                        0px 0px 30px 10px orange inset;
+
+        }
+        /*OPEN, 24, HOURS 각 줄별로 다른 색을 넣음*/
+        #hours>p:nth-child(1){
+            margin-top:65px;
+            color:chartreuse;
+            text-shadow: 0px 0px 10px greenyellow,
+                            0px 0px 25px greenyellow,
+                            0px 0px 25px green,
+                            0px 0px 50px green,
+                            0px 0px 50px green;
+        }
+        #hours>p:nth-child(2){
+            color:skyblue;
+            text-shadow: 0px 0px 10px skyblue,
+                            0px 0px 25px skyblue,
+                            0px 0px 25px blue,
+                            0px 0px 50px blue,
+                            0px 0px 50px blue;
+        }
+        #hours>p:nth-child(3){
+            color:yellow;
+            text-shadow: 0px 0px 10px orange,
+                            0px 0px 25px orange,
+                            0px 0px 25px orangered,
+                            0px 0px 50px orangered,
+                            0px 0px 50px orangered;
+        }
+        /*마우스를 올리면 불이 꺼지는 효과*/
+        #hours:hover{
+            border: 5px solid black; border-radius: 10% ;
+            color: black;
+            box-shadow: none;
+        }
+        #hours:hover p{
+            border:none;
+            text-shadow: none;
+            color: black;
+        }
+
+        #open{
+            border: 5px solid white; border-radius: 10%;
+            font-size: 100px; font-family: 'future'; font-weight: 100;
+            line-height: 160px;
+            text-align: center;
+            float: left;
+            width: 300px; height: 120px; margin: 20px;   
+            text-shadow: 0px 0px 10px white,
+                            0px 0px 5px orange,
+                            0px 0px 10px blue,
+                            0px 0px 10px blue,
+                            0px 0px 10px blue,
+                            0px 0px 10px blue,
+                            0px 0px 10px blue,
+                            0px 0px 20px blue,
+                            0px 0px 20px blue;
+            color: white;
+            box-shadow: 0px 0px 15px 0px orange,
+                        0px 0px 15px 0px orange inset,
+                        0px 0px 15px 0px orange,
+                        0px 0px 15px 0px orange inset,
+                        0px 0px 15px 0px orange,
+                        0px 0px 15px 0px orange inset;
+        }
+        #open:hover{
+            border: 5px solid black;
+            color:black;
+            text-shadow: none;
+            box-shadow: none;
+        }
+        #bar{
+            border: 5px solid white; border-radius: 10%;
+            font-size: 100px; font-family: 'neon'; 
+            line-height: 120px;
+            text-align: center;
+            float: left;
+            width: 300px; height: 120px; margin: 20px; 
+            text-shadow: 0px 0px 10px white,
+                            0px 0px 5px magenta,
+                            0px 0px 10px magenta,
+                            0px 0px 10px magenta,
+                            0px 0px 20px magenta,
+                            0px 0px 20px magenta;
+            color: white;
+            box-shadow: 0px 0px 15px 0px yellow,
+                        0px 0px 15px 0px yellow inset,
+                        0px 0px 15px 0px yellow,
+                        0px 0px 15px 0px yellow inset;
+        }
+        #bar:hover{
+            border: 5px solid black;
+            color:black;
+            text-shadow: none;
+            box-shadow: none;
+        }       
+        #openlate{
+            font-size: 100px; font-family: 'neon'; 
+            line-height: 120px;
+            text-align: center;
+            float: left;
+            width: 700px; height: 120px; margin: 20px;   
+            text-shadow: 0px 0px 10px white,
+                            0px 0px 25px yellow,
+                            0px 0px 25px yellow,
+                            0px 0px 50px yellow,
+                            0px 0px 50px yellow;
+            color: white;
+        }
+        #openlate:hover{
+            color:black;
+            text-shadow: none;
+            box-shadow: none;
+        }
+        #welcome{
+            border: 5px solid white; border-radius: 10%;
+            font-size: 70px; font-family: 'neons80';  writing-mode:tb; text-orientation: upright; letter-spacing: -15px;
+            line-height: 110px;
+            text-align: center;
+            float: left;
+            width: 110px; height: 450px; margin: 20px;   
+            text-shadow: 0px 0px 10px white,
+                            0px 0px 10px yellow,
+                            0px 0px 10px yellow,
+                            0px 0px 50px yellow,
+                            0px 0px 50px yellow;
+            color: white;
+            box-shadow: 0px 0px 15px 5px white,
+                        0px 0px 15px 5px white inset,
+                        0px 0px 15px 5px magenta,
+                        0px 0px 15px 5px magenta,
+                        0px 0px 15px 5px magenta inset;
+        }
+        #welcome:hover{
+            border: 5px solid black;
+            color:black;
+            text-shadow: none;
+            box-shadow: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div id=leftbox>
+            <div id="hours">
+                <p>OPEN</p>
+                <p>☀24☾</p>
+                <p>HOURS</p>
+            </div>
+            <div id="open">OPEN</div>
+            <div id="bar">BAR</div>    
+            <div id="openlate">OPENLATE</div>        
+        </div>
+        <div id="welcome">WELCOME</div>
+
+    </header>
+
+</body>
+</html>
