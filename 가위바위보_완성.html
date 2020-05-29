@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>가위바위보게임</title>
+        <style>
+            table {
+                border: 1px solid #000000;
+                border-collapse: collapse;
+                width: 400px;
+                margin: 0 auto;
+            }
+            table caption {
+                padding: 20px;
+            }
+            table th {
+                border: 1px solid #000000;
+                padding: 20px;
+            }
+            table td {
+                border: 1px solid #000000;
+                padding: 20px;
+                width: 50%;
+            }
+            #play_ment{
+                text-align: center;
+                padding: 20px;
+            }
+            #player_button{
+                text-align: center;
+            }
+            #player_button img {
+                border: 1px solid white;
+            }
+            
+            #player_button img:hover {
+                border: 1px solid red;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            }
+            #result_box {
+                background-color: rgba(255,0,0,0.6);
+                text-align: center;
+                padding: 20px 0 10px 0;
+                width: 300px;
+                position: absolute;  /*순차적쌓임에서 벗어남*/
+                top: 230px;     /*물리적인 위치 지정*/
+                left:50%;
+                transform: translateX(-50%);
+                border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,1);
+            }
+            #result_box div{
+                padding: 0 0 10px;
+            }
+            #result_msg{
+                background-color: #ffffff;
+                margin: 0 auto 10px;
+                width: 260px;
+                border-radius: 6px;
+                padding-top: 10px !important; /*겹치는 명령이 있을경우 이것을 최종적으로 보이게 할*/
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <caption id="score">
+                0전
+                0승
+                0무
+                0패
+            </caption>
+            <tr>
+                <th>컴퓨터</th>
+                <th>플레이어</th>
+            </tr>
+            <tr>
+                <td><img id="com_img" src="http://somebodyfamily.com/temp/game_0.png" onload="change_com_img()"></td>
+                <td><img id="player_img" src="http://somebodyfamily.com/temp/game_0.png" ></td>
+            </tr>
+        </table>
+        <div id="play_ment">플레이어는 아래 가위 바위 보 이미지 중 하나를 선택하세요</div>
+        <div id="player_button">
+            <img src="http://somebodyfamily.com/temp/game_0.png" alt="" onclick="betting(0)">   <!--클릭하면 betting함수에 0변수를 보내도록-->
+            <img src="http://somebodyfamily.com/temp/game_1.png" alt="" onclick="betting(1)">
+            <img src="http://somebodyfamily.com/temp/game_2.png" alt="" onclick="betting(2)">
+        </div>
+        <div id="result_box">
+            <div id="result_msg">가위 바위 보 게임</div>
+            <div><button onclick="game_start();">게임 시작</button></div>
+        </div>
+        <script>
+            var stop = true;
+            var game = 0;   //전체 게임판수
+            var win = 0;    //이긴판수
+            var lose = 0;   //진판수
+            var draw = 0;   //비긴판수
+            /*게임준비*/
+            function game_ready() {
+                document.getElementById('play_ment').style.display='none';
+                document.getElementById('player_button').style.display='none';
+                document.getElementById('result_box').style.display='block';
+            }
+            /*게임시작과 함께 가위,바위,보 선택창이 뜸*/
+            function game_start() {
+                document.getElementById('result_box').style.display='none';
+                document.getElementById('play_ment').style.display='block';
+                document.getElementById('player_button').style.display='block';
+                document.getElementById('player_img').src='';
+                stop = false;
+                change_com_img();
+            }
+            
+            function change_com_img() {
+                if(stop) { return;} //stop이 true면 중지
+
+                //betting함수에서 결과판정을 위해 rnd를 전역변수로 선언
+                rnd = Math.floor(Math.random() * 10) %3; // 0.0 ~ 0.9999999999 의 값을 랜덤으로 출력, 10을 곱해 9.9999로 만들고 math.floor로 소수점을 버린다.  
+                var img_url = "http://somebodyfamily.com/temp/game_" + rnd + ".png";
+                document.getElementById('com_img').src = img_url;
+            }
+
+            //결과판정을 위한 함수
+            function betting(idx){
+                var img_url = "http://somebodyfamily.com/temp/game_" + idx + ".png"
+                document.getElementById('player_img').src = img_url;
+                
+                stop = true;
+                //결과 판정
+                var seed = ['가위', '바위', '보'];
+                var player = seed[idx];
+                var com = seed[rnd];
+                //이긴경우, 진경우, 비긴경우를 모두 if 문으로 구분
+                if(player=='가위' && com=='보' || player=='바위' && com=='가위' || player=='보' && com=='바위'){ 
+                    document.getElementById('result_msg').innerHTML='이겼네용 짝짝짝';
+                    document.getElementById('result_box').style.backgroundColor='rgba(29,219,22,0.6)'
+                    game++;
+                    win++;
+                    
+                } else if(player==com){     //이긴경우와 비긴경우를 구현해 놓으면 나머지경우는 모두 진 경우이기 때문에 편하게 표현하였다.
+                    document.getElementById('result_msg').innerHTML='비겼네 까비';
+                    document.getElementById('result_box').style.backgroundColor='rgba(255,228,0,0.6)'
+                    game++;
+                    draw++;
+                } else {
+                    document.getElementById('result_msg').innerHTML='졌네 ㅋㅋ;';
+                    document.getElementById('result_box').style.backgroundColor='rgba(255,0,0,0.6)'
+                    game++;
+                    lose++;
+                }
+                console.log(game);
+                console.log(win);
+                document.getElementById('score').innerHTML= game +'전 ' + win + '승 ' + draw + '무 ' + lose + '패 '; 
+                game_ready();
+            }
+            game_ready();
+        </script>
+    </body>
+</html>
