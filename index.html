@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"> <!--font-family: 'Share Tech Mono', monospace;-->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
+    <title>KIJONGWOO</title>
+    <!--PC화면-->
+    <style> 
+        /*전체 텍스트설정 강조글씨용 파란색, 제목욕 흰글씨와 나머지 본문용 흰글씨, 글씨체가 너무 얇아 좀더 괜찮은걸로 찾을 필요 있음*/
+        .bluetext{color: #1b61ff; display: inline-block; }
+        .whitetext{color: rgba(255, 255, 255, 0.877); display: inline-block; }
+        *{color: rgba(245, 245, 245, 0.877); font-size: 22px; font-family: 'Fira Sans Condensed', sans-serif; font-weight: bold; line-height: 30px;}
+        h3{font-size: 80px; padding-bottom: 150px; margin: 0; font-family: 'Prata', serif;}    /*세션명*/
+        h5{font-size: 70px; text-align: right; color:#1b5fffc5; margin: 0; font-family: 'Share Tech Mono', monospace;} /*작품명*/
+        html{background-color: black; width:100%;}
+        body{
+            margin: 0 auto;
+        }
+        header{
+            width: 100%; height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        #titleimg{
+            width: 100%;
+            height: 154px;
+            background-color: black;
+        }
+        header>video{
+            position : fixed;
+            top : 0; 
+            left : 0;
+            min-width : 100%;
+            min-height : 100%;
+            width : auto;
+            height : auto;
+            z-index : -1;
+        }
+        #contents{
+            padding: 10%; padding-bottom: 0; box-sizing: border-box;
+            width: 100%;
+            overflow: hidden;
+            background-image: url("https://zx8607.github.io/wire_background.jpg"); 
+            background-size: 100% 100%;
+            background-color: black;
+        }
+        .workBox{
+            width: 100%; height: 500px;
+            box-sizing: border-box; margin-bottom: 10%;
+        }
+        /*작품설명*/
+        .ExplainBox{
+            float: left;
+            width: 49%;
+            margin:0; padding: 0 5%; box-sizing: border-box; 
+            position:relative;           
+            top:50%;               
+            transform:translate(0,-50%); 
+        }
+        .Thumbnail{
+            width: 50%;
+            float:left;
+            border: white solid 1px;
+            position:relative;           
+            top:50%;               
+            transform:translate(0,-50%); 
+        }
+        #profile{
+            width: 100%;
+            float: left;
+            margin-top: 15%;
+        }
+        #profile>img{
+            float:left;
+        }
+        #profile>div>img{
+            height: 80%; 
+            position: absolute;
+            left: 0;
+            transform:translate(0,-50%);
+        }
+        #profile_text{
+            float:left;
+            padding: 10%; padding-top: 5%;
+        }
+        footer{
+            width: 100%; height: 500px;
+            box-sizing: border-box; padding : 20% 10%;
+            float: left;
+            text-align: right;
+            background-image: url("https://zx8607.github.io/floor.jpg"); background-repeat: no-repeat;
+            background-size: 100% 100%; background-position: bottom; 
+        }
+    </style>
+    <!--헤더 스크롤버튼-->
+    <style>
+        header>a {
+            position: absolute;
+            padding-top: 70px;
+            top:85%; left: 50%;
+            z-index : 9999;
+        }
+        header>a span {
+            position: absolute;
+            left: 50%; top:0;
+            width: 48px;
+            height: 48px;
+            margin-left: -12px;
+            border-left: 10px solid white;
+            border-bottom:10px solid white;
+            -webkit-transform: rotateZ(-45deg);
+            transform: rotateZ(-45deg);
+            -webkit-animation: sdown 1.5s infinite;
+            animation: sdown 1.5s infinite;
+            box-sizing: border-box;
+        }
+        @-webkit-keyframes sdown {
+        0% {
+            -webkit-transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            -webkit-transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
+            opacity: 0;
+        }
+        }
+        @keyframes sdown {
+            0% {
+                transform: rotateY(0) rotateZ(-45deg) translate(0, 0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotateY(720deg) rotateZ(-45deg) translate(-20px, 20px);
+                opacity: 0;
+            }
+        }
+    </style>
+    <!--고정스크롤버튼 크롬 사파리에서 지원하는 -webkit 수식어추가-->
+    <style>
+        #downScroll{
+            position: fixed;
+            padding-top: 80px;
+            bottom: 0; right: 50px;
+            margin: 10px;
+            z-index: 9999;
+        }
+        #downScroll span {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            -webkit-animation: sdb 2s infinite;
+            animation: sdb 2s infinite;
+            opacity: 0;
+        }
+        #downScroll span:nth-of-type(1) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+            border: 1px solid #1b61ff;
+        }
+        #downScroll span:nth-of-type(2) {
+            top: 16px;
+            -webkit-animation-delay: .15s;
+            animation-delay: .15s;
+        }
+        #downScroll span:nth-of-type(3) {
+            top: 32px;
+            -webkit-animation-delay: .3s;
+            animation-delay: .3s;
+            
+        }
+        #upScroll{
+            position: fixed;
+            padding-top: 80px;
+            bottom: 80px; right: 50px;
+            margin: 10px;
+            z-index: 9999;
+        }
+        #upScroll span {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            -webkit-animation: sdb 2s infinite;
+            animation: sdb 2s infinite;
+            opacity: 0;
+        }
+        #upScroll span:nth-of-type(1) {
+            -webkit-animation-delay: 0.3s;
+            animation-delay: .3s;
+        }
+        #upScroll span:nth-of-type(2) {
+            top: 16px;
+            -webkit-animation-delay: .15s;
+            animation-delay: .15s;
+        }
+        #upScroll span:nth-of-type(3) {
+            top: 32px;
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+            border: 1px solid #1b61ff;
+        }
+        @-webkit-keyframes sdb {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+            }
+        @keyframes sdb {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){            
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+            });
+        });
+      </script>
+</head>
+<body id="pagetop">
+    <!--스크롤버튼-->
+    <a id="upScroll"  class="scroll" href="#pagetop"><span></span><span></span><span></span></a>
+    <a id="downScroll"  class="scroll" href="#profile"><span></span><span></span><span></span></a>
+    <!--헤더/ 타이틀과 비디오만으로 화면의 세로를 가득 채워야 함-->
+    <header>
+        <!--메인타이틀-->
+        <div id="titleimg"><img src="https://zx8607.github.io/title.jpg"></div>
+        <!--헤더스크롤버튼-->
+        <a href="#works" class="scroll"><span></span></a>
+        <!--메인비디오-->
+        <video src="https://zx8607.github.io/mainmovie.mp4" muted autoplay loop ></video>
+    </header>
+    <!--본문-->
+    <div id="contents">
+        <!--WORKS영역-->
+        <section id="works">
+            <h3 class="bluetext">W</h3><h3 class="whitetext">orks</h3><br/>
+            <!--작품1-->
+            <div class="workBox">
+                <div class="ExplainBox">
+                    <h5>Cayde-6</h5><br/><br/><br/>
+                    'Bungie'사의 '데스티니 가디언즈' 게임속에서<br/>
+                    등장하는 캐릭터 Cayde-6를 간단히 스컬핑한 작품<br/>
+                </div>
+                <div class="Thumbnail">
+                        <div class="sketchfab-embed-wrapper">
+                            <iframe title="A 3D model" width="100%" height="400px" src="https://sketchfab.com/models/aafc73a196264000a902c2133a0913d0/embed?autostart=1&amp;preload=1&amp;ui_controls=1&amp;ui_infos=1&amp;ui_inspector=1&amp;ui_stop=1&amp;ui_watermark=1&amp;ui_watermark_link=1" frameborder="0" allow="autoplay; fullscreen; vr" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        </div>
+                </div>
+            </div>
+            <!--작품2-->
+            <div class="workBox">
+                <div class="ExplainBox">
+                    <h5>Polyland</h5><br/><br/><br/>
+                    폴리곤으로 이루어진 배경을 표현한 작품
+                </div>
+                <div class="Thumbnail">
+                    <iframe width="100%" height="400px" src="https://www.youtube.com/embed/OT1RYBtRehw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <!--작품3-->
+            <div class="workBox">
+                <div class="ExplainBox">
+                    <h5>winter pension</h5><br/><br/><br/>
+                    어느 한겨울 산 속의 펜션을 모델링 한 작품
+                </div>
+                <div class="Thumbnail">
+                    <img src="https://zx8607.github.io/polyland.png" alt="" width="100%">
+                </div>
+            </div>
+            <!--작품4-->
+            <div class="workBox">
+                <div class="ExplainBox">
+                    <h5>retro sun</h5><br/><br/><br/>
+                    제작중인 프로젝트, 흔한 레트로풍의 배경에<br/>
+                    다양한 색상의 조합을 적용해볼 계획
+                </div>
+                <div class="Thumbnail">
+                    <img src="https://zx8607.github.io/retrosun.JPG" alt="" width="100%">
+                </div>
+            </div>
+            <!--작품5-->
+            <div class="workBox">
+                <div class="ExplainBox"> 
+                    <h5>hey honey bee</h5><br/><br/><br/>
+                    '라이엇게임즈'사의 작품 '리그오브레전드'게임 속<br/>
+                    등장하는 귀여운 꿀벌 캐릭터를 스컬핑 한 작품
+                </div>
+                <div class="Thumbnail">
+                    <img src="https://zx8607.github.io/ya.jpg" alt="" width="100%">
+                </div>
+            </div>
+        </section>
+        <!--프로필영역-->
+        <section id="profile">
+            <div><img src="https://zx8607.github.io/backface.png" alt=""><h3 class="bluetext">P</h3><h3 class="whitetext">rofile</h3><br/></div>
+            
+            <img src="https://zx8607.github.io/프로필사진.jpg" alt="" width="40%">
+            <div id="profile_text">
+                기종우 / KI JONG WOO / キジョンウ<br/>
+                <br/>
+                Born 1997, Deagu, Korea<br/>
+                <br/>
+                yungjin unv.<br/>
+                <br/>
+                zx8607@gmail.com<br/>
+            </div>
+        </section>
+    </div>
+    <footer>
+        Copyright 2020. KIJONGWOO. All rights reserved
+    </footer>
+</body>
+</html>
